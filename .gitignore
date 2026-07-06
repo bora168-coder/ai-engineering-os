@@ -1,0 +1,26 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Environments & secrets — never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Common build/dependency dirs (extend per stack)
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+.venv/
+target/
+coverage/
+
+# Local AI assistant state
+.claude/settings.local.json
