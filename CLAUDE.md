@@ -12,6 +12,8 @@ that you are required to follow.
 4. Read `.ai/tasks/sprint.md` and `.ai/tasks/todo.md` for current state.
 5. Continue from the current project state. Never start from scratch.
 
+Claude-specific notes: `.ai/providers/claude.md`.
+
 ## Operating rules (summary — full rules in .ai/RULES.md)
 
 - **Never code before planning.** Present a plan for any non-trivial task first.

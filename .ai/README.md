@@ -7,6 +7,8 @@ project. If you are an AI assistant reading this: **follow this file exactly.**
 
 Read these files in this order before doing any work:
 
+0. `providers/<your-tool>.md` — notes for the assistant you are (Claude, Codex,
+   ChatGPT, Gemini, Copilot, Cursor). Not listed? Read `providers/README.md`.
 1. `PROJECT.md` — what this project is, who it's for, what success means.
 2. `ARCHITECTURE.md` — how the system is designed. Do not violate it.
 3. `TECH_STACK.md` — the approved languages, frameworks, and tools.
@@ -40,6 +42,7 @@ Consult as needed: `STYLE_GUIDE.md`, `TESTING.md`, `SECURITY.md`, `DECISIONS.md`
 | `prompts/` | Canonical prompts for recurring workflows (implement, debug, release, …). |
 | `memory/` | Persistent knowledge base. Read at session start, update at task end. |
 | `tasks/` | Backlog, sprint, todo, completed. The project's working state. |
+| `providers/` | Per-assistant notes and the list of entry files (`CLAUDE.md`, `AGENTS.md`, …). |
 
 ## For humans
 

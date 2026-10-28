@@ -10,4 +10,7 @@
 | ADR | Architecture Decision Record | template: `templates/adr.md` |
 | RECORD stage | The mandatory post-task update of memory/tasks/docs/changelog | see `WORKFLOW.md` |
 
+| Entry file | The file an AI tool loads by itself (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, …); only points to `.ai/` | see `.ai/providers/README.md` |
+| Provider file | Tool-specific notes for one assistant in `.ai/providers/` | ADR-0001 |
+
 <!-- Add domain terms as the project defines them. -->

@@ -10,5 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate VOID AI OS structure
+      - name: Validate VOID AI OS structure and docs
         run: bash scripts/validate.sh
+      - name: Lint scripts
+        run: shellcheck -x scripts/*.sh tests/*.sh
+      - name: Test scripts
+        run: bash tests/scripts.test.sh
