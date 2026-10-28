@@ -33,4 +33,10 @@
 
 <!-- Local setup quirks, CI peculiarities, "works on my machine" resolutions. -->
 
-- _none yet_
+- 2026-10-28 — `scripts/*.sh` must run on macOS's default Bash 3.2 and BSD
+  `sed`: no associative arrays, no `mapfile`, no `sed -i` (use `sed_in_place`
+  from `scripts/lib.sh`). Escape user input with `sed_escape` before using it
+  in a sed replacement — `&`, `|`, and `\` broke the old init.
+- 2026-10-28 — `tests/scripts.test.sh` copies the working tree (tracked + new
+  files) into a temp git repo per test, so tests never touch the real checkout.
+  CI runs it plus `shellcheck -x scripts/*.sh tests/*.sh`.

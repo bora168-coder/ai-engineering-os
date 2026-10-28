@@ -35,7 +35,8 @@ UNDERSTAND → PLAN → IMPLEMENT → VERIFY → RECORD
 
 - Write/update tests per `TESTING.md`. Run the full relevant test suite.
 - Exercise the changed behavior end-to-end, not just unit tests.
-- Run linters/formatters. A task with failing checks is not done.
+- Run linters/formatters and `./scripts/validate.sh`. A task with failing
+  checks is not done.
 
 ### 5. Record
 

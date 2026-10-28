@@ -48,10 +48,19 @@ manual workflow in `chatgpt.md` — it works for any chat-only assistant.
 2. Create the tool's entry file at its documented path. It must reference
    `.ai/README.md` and `.ai/providers/<name>.md`, and nothing more.
 3. Add a row to the table above.
-4. Add both files to `scripts/validate.sh`.
+4. Add the provider to `PROVIDERS` and `provider_files` in `scripts/lib.sh`.
 5. Note the change in `CHANGELOG.md`.
 
-## Removing a provider
+## Choosing providers
 
-Your team doesn't use one of these tools? Delete its entry file and provider
-file, remove its row above, and remove it from `scripts/validate.sh`.
+At setup, keep only the assistants your team uses:
+
+```bash
+./scripts/setup.sh --providers claude,cursor
+```
+
+Choices: `claude`, `openai` (Codex + ChatGPT), `gemini`, `copilot`, `cursor`.
+`init.sh` deletes the other entry and provider files and their table rows.
+`validate.sh` checks whichever assistants remain (at least one is required).
+
+To remove one later, delete its entry file and provider file and its row above.

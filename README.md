@@ -30,14 +30,26 @@ git clone https://github.com/bora168-coder/ai-engineering-os my-project
 cd my-project
 ```
 
-### 2. Initialize it
+### 2. Set it up
 
 ```bash
-./scripts/init.sh
+./scripts/setup.sh
 ```
 
-This asks for your project name and description, fills in all `{{PLACEHOLDER}}`
-tokens, and resets memory/tasks to a clean state.
+One command does everything:
+
+1. Checks that `git`, `sed`, `awk`, and `grep` are installed.
+2. Runs `scripts/init.sh`: asks for the project name, description, owner, and
+   which AI assistants you use; fills in all `{{PLACEHOLDER}}` tokens; writes a
+   project README and CHANGELOG; removes the assistants you don't use.
+3. Installs a git pre-commit hook that runs `scripts/validate.sh`.
+4. Validates the result.
+
+For CI or scripts, pass the answers as flags (nothing is asked):
+
+```bash
+./scripts/setup.sh --name "Acme" --description "Billing API" --providers claude,cursor
+```
 
 ### 3. Open your AI assistant
 
@@ -99,10 +111,23 @@ GEMINI.md             Entry file for Gemini CLI     │ all point to .ai/
 
 templates/            Document templates: ADR, feature request, bug report, story, …
 docs/                 Human-facing documentation (architecture, API, deployment, guides)
-scripts/              init.sh (project setup) and validate.sh (structure check)
+scripts/              setup.sh, init.sh, validate.sh — see "Scripts" below
+tests/                Tests for the scripts (run in CI)
 examples/             Example projects built with this OS
 .github/workflows/    CI that validates the OS structure stays intact
 ```
+
+## Scripts
+
+| Script | What it does |
+|---|---|
+| `scripts/setup.sh` | One-command setup: prerequisites, init (first run only), pre-commit hook, validation. Safe to re-run. `--no-hook` skips the hook. |
+| `scripts/init.sh` | Fills placeholders, keeps only the chosen assistants, writes a project README and CHANGELOG. Runs once per project. Flags: `--name`, `--description`, `--author`, `--providers`. |
+| `scripts/validate.sh` | Checks the OS structure, entry files, relative Markdown links, the ADR index, and leftover placeholders. `--strict` also fails on warnings, such as core docs still showing template example text. |
+| `tests/scripts.test.sh` | Tests for the three scripts. Each test runs in a throwaway copy of the repo. |
+
+All scripts are plain Bash and also work with macOS's default Bash 3.2 and BSD `sed`.
+Run `<script> --help` for all options.
 
 ## The operating loop
 
@@ -120,8 +145,8 @@ compounds. Next session — or next year — the AI picks up exactly where it le
 ## Roadmap
 
 - **v1.0** — AI workflow, project rules, agent definitions, templates, documentation structure.
-- **v2.0** — Scripts to initialize new projects, validate documentation, and automate setup.
-- **v3.0** — Support for multiple AI assistants (Claude, ChatGPT, Gemini, …) with provider-specific instructions. *(you are here)*
+- **v2.0** — Scripts to initialize new projects, validate documentation, and automate setup. ✅
+- **v3.0** — Support for multiple AI assistants (Claude, ChatGPT, Gemini, …) with provider-specific instructions. ✅ *(you are here)*
 - **v4.0** — Optional integrations with issue tracking, documentation tools, and CI/CD.
 
 ## License
