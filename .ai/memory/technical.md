@@ -17,7 +17,11 @@
 
 <!-- Context behind non-obvious implementation choices that don't warrant a full ADR. -->
 
-- _none yet_
+- 2026-10-28 — Entry files (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`,
+  `.github/copilot-instructions.md`, `.cursor/rules/void-ai-os.mdc`) stay thin and
+  point to `.ai/`. Edit rules in `.ai/`, never in an entry file, or tools drift
+  apart (ADR-0001). `scripts/validate.sh` fails if an entry file stops
+  referencing `.ai/README.md`.
 
 ## Dependency notes
 

@@ -16,7 +16,6 @@ require() {
 }
 
 # Root
-require CLAUDE.md
 require README.md
 require CHANGELOG.md
 require LICENSE
@@ -47,6 +46,18 @@ done
 # Templates
 for t in feature-request bug-report adr api-design database meeting-notes sprint epic story task; do
   require "templates/${t}.md"
+done
+
+# Providers: each entry file must exist and point to the shared brain
+for p in README claude chatgpt gemini copilot cursor; do
+  require ".ai/providers/${p}.md"
+done
+for e in CLAUDE.md AGENTS.md GEMINI.md .github/copilot-instructions.md .cursor/rules/void-ai-os.mdc; do
+  require "$e"
+  if [[ -f "$e" ]] && ! grep -q '\.ai/README\.md' "$e"; then
+    echo "❌ entry file does not reference .ai/README.md: $e"
+    ERRORS=$((ERRORS + 1))
+  fi
 done
 
 # Docs skeleton
