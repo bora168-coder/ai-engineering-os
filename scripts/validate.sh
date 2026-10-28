@@ -25,6 +25,7 @@ require LICENSE
 for f in README PROJECT WORKFLOW ARCHITECTURE RULES ROADMAP DECISIONS SECURITY TESTING STYLE_GUIDE TECH_STACK; do
   require ".ai/${f}.md"
 done
+require ".ai/FULL_WORKFLOW.md"
 
 # Agents
 for a in manager product_owner researcher architect backend frontend database mobile devops security reviewer qa documentation uiux; do

@@ -1,29 +1,23 @@
 # {{PROJECT_NAME}}
 
-This project runs on **VOID AI OS** — a version-controlled engineering workflow
-that you are required to follow.
+Use **VOID AI OS** in token-efficient mode by default.
 
-## Boot sequence (do this before anything else)
+## Default mode: Compact (always)
 
-1. Read `.ai/README.md` and follow every instruction in it.
-2. Read the core docs it lists, in order: `PROJECT.md`, `ARCHITECTURE.md`,
-   `TECH_STACK.md`, `WORKFLOW.md`, `RULES.md`.
-3. Read `.ai/memory/` — it contains knowledge from previous sessions.
-4. Read `.ai/tasks/sprint.md` and `.ai/tasks/todo.md` for current state.
-5. Continue from the current project state. Never start from scratch.
+1. Read `.ai/README.md` only.
+2. Load only files needed for the current task (see lazy-loading map in `.ai/README.md`).
+3. Do not preload entire directories (`.ai/memory/`, `.ai/agents/`, `.ai/prompts/`, `docs/`) unless the task requires them.
 
-## Operating rules (summary — full rules in .ai/RULES.md)
+## Quality and safety requirements
 
-- **Never code before planning.** Present a plan for any non-trivial task first.
-- **Never change architecture silently.** Record decisions in `.ai/DECISIONS.md`
-  using `templates/adr.md`.
-- **After every completed task**, update whichever of these changed:
-  `.ai/memory/`, `.ai/tasks/`, `.ai/ROADMAP.md`, `CHANGELOG.md`, and `docs/`.
-- Work like a senior software engineer on a production project.
+- Plan before non-trivial changes.
+- Inspect relevant code/docs before editing.
+- Run relevant tests/checks after changes.
+- Never change architecture silently: record decisions in `.ai/DECISIONS.md` via `templates/adr.md`.
+- Update only affected state/docs files (not everything by default).
 
-## Role and prompt libraries
+## Optional mode: Full workflow
 
-- Acting on a specialized task? Adopt the matching role from `.ai/agents/`
-  (e.g. `.ai/agents/reviewer.md` for code review).
-- Common workflows have canonical prompts in `.ai/prompts/`
-  (e.g. `.ai/prompts/debug.md` for bug fixing).
+When the user explicitly asks for **full workflow** (large/high-risk work), follow:
+
+- `.ai/FULL_WORKFLOW.md`

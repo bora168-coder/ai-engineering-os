@@ -43,11 +43,12 @@ claude
 ```
 
 That's it. `CLAUDE.md` at the repo root is loaded automatically and instructs
-Claude to read the entire `.ai/` directory before doing anything. If you use a
-different assistant, start with:
+Claude to start in **Compact mode** (token-efficient by default): read
+`.ai/README.md`, then lazy-load only task-relevant files. If you use a different
+assistant, start with:
 
 ```
-Read .ai/README.md. Follow every instruction. Continue from the current project state.
+Read .ai/README.md. Use compact mode and load only files needed for the task.
 ```
 
 ---
@@ -79,6 +80,31 @@ examples/             Example projects built with this OS
 .github/workflows/    CI that validates the OS structure stays intact
 ```
 
+## Compact vs Full workflow
+
+### Compact mode (default, recommended)
+
+- Reads only minimal instructions first.
+- Loads prompts/agents/memory/docs only when task-relevant.
+- Best for everyday bug fixes, features, and docs updates.
+
+### Full workflow mode (opt-in)
+
+Use this when work is large, high-risk, or explicitly requested:
+
+```
+Use full workflow mode. Follow .ai/FULL_WORKFLOW.md.
+```
+
+This preserves the deep process while avoiding unnecessary startup context on
+small tasks.
+
+### Before vs after (template behavior)
+
+- **Before:** startup instructions encouraged broad `.ai/` preloading each session.
+- **After:** startup defaults to compact lazy-loading and reads only task-relevant files.
+- **When needed:** users can explicitly switch to full mode for large/high-risk work.
+
 ## The operating loop
 
 Every task follows the same loop, enforced by `.ai/WORKFLOW.md`:
@@ -90,7 +116,8 @@ Every task follows the same loop, enforced by `.ai/WORKFLOW.md`:
 5. **Record** — update docs, memory, roadmap, changelog, and sprint. Always.
 
 Step 5 is what makes this an OS instead of a prompt: the project's knowledge
-compounds. Next session — or next year — the AI picks up exactly where it left off.
+compounds. In compact mode, update only files made stale by the completed task.
+For high-risk work, switch to full mode to run the complete workflow.
 
 ## Roadmap
 
