@@ -1,48 +1,46 @@
-# .ai/ — The Brain
+# .ai/ — The Brain (Token-Efficient)
 
-This directory is the single source of truth for how AI assistants work on this
-project. If you are an AI assistant reading this: **follow this file exactly.**
+This directory is the source of truth for AI-assisted engineering workflow.
+Default behavior is **lazy-loading**: load only what the current task needs.
 
-## Boot sequence
+## Modes
 
-Read these files in this order before doing any work:
+### 1) Compact mode (default)
 
-1. `PROJECT.md` — what this project is, who it's for, what success means.
-2. `ARCHITECTURE.md` — how the system is designed. Do not violate it.
-3. `TECH_STACK.md` — the approved languages, frameworks, and tools.
-4. `WORKFLOW.md` — how every task flows from idea to done.
-5. `RULES.md` — non-negotiable engineering rules.
-6. `memory/` — all five files. Knowledge from previous sessions lives here.
-7. `ROADMAP.md` — where the project is going.
-8. `tasks/sprint.md` and `tasks/todo.md` — the current state of work.
+- Read this file first.
+- Do **not** preload all core docs, memory files, prompts, or agents.
+- Load files from the map below based on task type.
 
-Consult as needed: `STYLE_GUIDE.md`, `TESTING.md`, `SECURITY.md`, `DECISIONS.md`.
+### 2) Full workflow mode (opt-in)
 
-## Your responsibilities
+Use only when explicitly requested (or for high-risk/large changes):
 
-1. Understand the project before acting.
-2. **Create an implementation plan before writing code. Never code before planning.**
-3. Never change architecture without documenting the decision in `DECISIONS.md`.
-4. Follow the coding standards in `STYLE_GUIDE.md` and rules in `RULES.md`.
-5. After every completed task, update whichever of these changed:
-   - `memory/` (new knowledge, resolved issues, new terms)
-   - `tasks/` (move items: todo → completed; keep sprint.md accurate)
-   - `ROADMAP.md` (progress against milestones)
-   - `CHANGELOG.md` at the repo root (user-visible changes)
-   - `docs/` (anything a human reader would now find stale)
-6. Always work like a senior software engineer on a production project.
+- Follow `.ai/FULL_WORKFLOW.md`.
+
+## Lazy-loading map (task → files to read)
+
+| Task type | Read first | Load only if needed |
+|---|---|---|
+| Small bug/debug | `prompts/debug.md`, relevant code/files | `RULES.md`, `TESTING.md`, `memory/known-issues.md` |
+| Code review / QA | `agents/reviewer.md` or `agents/qa.md` | `RULES.md`, `TESTING.md`, `SECURITY.md` |
+| Database/data changes | `agents/database.md`, `templates/database.md` | `ARCHITECTURE.md`, `SECURITY.md`, `TESTING.md` |
+| Architecture/design changes | `ARCHITECTURE.md`, `DECISIONS.md`, `templates/adr.md` | `TECH_STACK.md`, `ROADMAP.md`, relevant `docs/architecture/*` |
+| Deployment/DevOps | `agents/devops.md`, `docs/deployment/README.md` | `SECURITY.md`, `TECH_STACK.md` |
+| Documentation updates | target doc(s), `agents/documentation.md` | `PROJECT.md`, `WORKFLOW.md`, glossary memory |
+
+## Always-on guardrails
+
+1. Plan before non-trivial changes.
+2. Inspect relevant code/docs before editing.
+3. Run relevant tests/checks for changed behavior.
+4. Never change architecture silently (use ADR + `DECISIONS.md`).
+5. Update only files made stale by your task (not every tracking file by default).
 
 ## Directory map
 
 | Path | Purpose |
 |---|---|
-| `agents/` | Role definitions. Adopt the matching role for specialized work. |
-| `prompts/` | Canonical prompts for recurring workflows (implement, debug, release, …). |
-| `memory/` | Persistent knowledge base. Read at session start, update at task end. |
-| `tasks/` | Backlog, sprint, todo, completed. The project's working state. |
-
-## For humans
-
-Everything here is plain Markdown under version control. Edit it like code:
-review changes, keep it current, delete what's obsolete. A stale brain is worse
-than no brain.
+| `agents/` | Role definitions for specialized work. |
+| `prompts/` | Canonical prompts for common workflows. |
+| `memory/` | Persistent knowledge; read selectively unless in full mode. |
+| `tasks/` | Backlog, sprint, todo, completed state. |
